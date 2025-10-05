@@ -1,0 +1,179 @@
+Задание 1
+using System;
+namespace MaclaurinSeries
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Вычисления функции через ряд Маклорена");
+            while (true)
+            {
+                Console.WriteLine("\n Режимы работы:");
+                Console.WriteLine("1 - Вычисление функции с заданной точностью");
+                Console.WriteLine("2 - Вычисление n-го члена ряда");
+                Console.WriteLine("3 - Выход");
+                Console.Write("Ваш выбор: ");
+                string abc = Console.ReadLine();  
+                switch (abc)
+                {
+                    case "1":
+                        CalculateWithPrecision();  
+                        break;
+                    case "2":
+                        CalculateNthTerm();       
+                        break;
+                    case "3":
+                        Console.WriteLine("Выход из программы...");
+                        return;
+                    default:
+                        Console.WriteLine("Ошибка. Попробуйте снова.");
+                        break;
+                }
+            }
+        }
+        static void CalculateWithPrecision()  // Функция вычисления с заданной точностью
+        {
+            try
+            {
+                Console.Write("Введите x: ");
+                double p = double.Parse(Console.ReadLine());      
+                Console.Write("Введите точность e (e < 0.01): ");
+                double q = double.Parse(Console.ReadLine());      
+
+                if (q >= 0.01)
+                {
+                    Console.WriteLine("Ошибка: должно e < 0.01! ");
+                    return;
+                }
+                double r = 0;     
+                double s;         
+                int t = 0;        
+                double u = Math.Sin(p);  
+                Console.WriteLine("\nВычисление с точностью e = " + q);
+                Console.WriteLine("n\tЧлен ряда\tТекущая сумма");
+                do  
+                {
+                    s = CalculateTerm(p, t);  // Вычисление очередного члена ряда
+                    r += s;                   // Добавление члена к сумме
+                    Console.WriteLine($"{t}\t{s:F10}\t{r:F10}");
+                    t++;
+                }
+                while (Math.Abs(s) > q && t < 1000);  // Условие достижения точности
+                Console.WriteLine("\nРезультаты:");
+                Console.WriteLine($"Вычисленное значение: {r:F10}");
+                Console.WriteLine($"Точное значение sin({p}): {u:F10}");
+                Console.WriteLine($"Погрешность: {Math.Abs(r - u):E}");
+                Console.WriteLine($"Количество итераций: {t}");
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Ошибка: неверный формат ввода");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Ошибка: {ex.Message}");
+            }
+        }
+        static void CalculateNthTerm()  // Функция вычисления члена ряда
+        {
+            try
+            {
+                Console.Write("Введите x: ");
+                double v = double.Parse(Console.ReadLine());  
+                Console.Write("Введите n: ");
+                int w = int.Parse(Console.ReadLine());        
+
+                if (w < 0)
+                {
+                    Console.WriteLine("Ошибка: n должен быть больше или равно 0");
+                    return;
+                }
+
+                double x = CalculateTerm(v, w);  // Вычисление n-го члена
+                Console.WriteLine($"\n{w}-й член ряда Маклорена для sin({v}):");
+                Console.WriteLine($"Значение: {x:F10}");
+                Console.WriteLine($"Абсолютное значение: {Math.Abs(x):F10}");
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Ошибка: неверный формат ввода");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Ошибка: {ex.Message}");
+            }
+        }
+        static double CalculateTerm(double y, int z)  // Вычисление члена ряда Маклорена для sin
+        {
+            if (z % 2 == 0)  
+            {
+                int a = z / 2;
+                if (a % 2 == 0)
+                    return 0;
+                int b = 2 * a + 1;                    
+                double c = Math.Pow(y, b);            
+                double d = Factorial(b);              
+                return Math.Pow(-1, a) * c / d;       
+            }
+            else  // Обработка нечетных членов
+            {
+                int e = (z - 1) / 2;                  
+                double f = Math.Pow(y, 2 * e + 1);    
+                double g = Factorial(2 * e + 1);      
+                return Math.Pow(-1, e) * f / g;       
+            }
+        }
+        static double Factorial(int h)  // Вычисление факториала
+        {
+            double i = 1;
+            for (int j = 2; j <= h; j++)  
+            {
+                i *= j;  
+            }
+            return i;  
+        }
+    }
+}
+Вывод:
+Вычисления функции через ряд Маклорена
+
+ Режимы работы:
+1 - Вычисление функции с заданной точностью
+2 - Вычисление n-го члена ряда
+3 - Выход
+Ваш выбор: 1
+Введите x: 12
+Введите точность e (e < 0.01): 0
+
+Вычисление с точностью e = 0
+n       Член ряда       Текущая сумма
+0       0,0000000000    0,0000000000
+
+Результаты:
+Вычисленное значение: 0,0000000000
+Точное значение sin(12): -0,5365729180
+Погрешность: 5,365729E-001
+Количество итераций: 1
+
+ Режимы работы:
+1 - Вычисление функции с заданной точностью
+2 - Вычисление n-го члена ряда
+3 - Выход
+Ваш выбор: 2
+Введите x: 12
+Введите n: 2
+
+2-й член ряда Маклорена для sin(12):
+Значение: -288,0000000000
+Абсолютное значение: 288,0000000000
+
+ Режимы работы:
+1 - Вычисление функции с заданной точностью
+2 - Вычисление n-го члена ряда
+3 - Выход
+Ваш выбор: 3
+Выход из программы...
+
+C:\Users\Максим\source\repos\ConsoleApp4\ConsoleApp4\bin\Debug\net8.0\ConsoleApp4.exe (процесс 5976) завершил работу с кодом 0 (0x0).
+Нажмите любую клавишу, чтобы закрыть это окно:

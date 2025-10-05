@@ -1,0 +1,62 @@
+Задание 7
+
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Введите количество модулей(n): ");
+        int n = int.Parse(Console.ReadLine());
+
+        Console.Write("Введите размеры модуля через пробел(a,b): ");
+        string[] s = Console.ReadLine().Split();
+        int a = int.Parse(s[0]);
+        int b = int.Parse(s[1]);
+
+        Console.Write("Введите размеры поля через пробел(w,h): ");
+        s = Console.ReadLine().Split();
+        int w = int.Parse(s[0]);
+        int h = int.Parse(s[1]);
+
+        int d = 0; 
+        int m = 0; 
+
+        // Перебираем толщину защиты
+        for (int t = 0; t <= Math.Min(w, h); t++)
+        {
+            // Размеры модуля с защитой
+            int x = a + 2 * t;
+            int y = b + 2 * t;
+
+            bool f1 = (w / x) * (h / y) >= n;
+            bool f2 = (w / y) * (h / x) >= n;
+
+            if (f1 || f2)
+            {
+                m = t;
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        // Проверка
+        if (m == 0 && (w / a) * (h / b) < n && (w / b) * (h / a) < n)
+        {
+            m = -1;
+        }
+
+        Console.WriteLine($"Максимальная толщина защиты: {m}");
+    }
+}
+
+Вывод:
+Введите количество модулей(n): 4
+Введите размеры модуля через пробел(a,b): 10 10
+Введите размеры поля через пробел(w,h): 30 30
+Максимальная толщина защиты: 2
+
+C:\Users\Максим\source\repos\ConsoleApp4\ConsoleApp4\bin\Debug\net8.0\ConsoleApp4.exe (процесс 13208) завершил работу с кодом 0 (0x0).
+Нажмите любую клавишу, чтобы закрыть это окно:

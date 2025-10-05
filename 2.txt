@@ -1,0 +1,35 @@
+Задание 2
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Введите 6-и значныйт номер билета: ");
+        int ticket = int.Parse(Console.ReadLine());
+
+        int digit1 = ticket / 100000;// Разбиваем число на цифры
+        int digit2 = (ticket / 10000) % 10;
+        int digit3 = (ticket / 1000) % 10;
+        int digit4 = (ticket / 100) % 10;
+        int digit5 = (ticket / 10) % 10;
+        int digit6 = ticket % 10;
+        int sumFirstThree = digit1 + digit2 + digit3;// Суммы первых трех и последних трех цифр
+        int sumLastThree = digit4 + digit5 + digit6;
+
+        if (sumFirstThree == sumLastThree)// Проверяем, является ли билет счастливым
+        {
+            Console.WriteLine("Счастливый билет");
+        }
+        else
+        {
+            Console.WriteLine("Обычный билет");
+        }
+    }
+}
+Вывод:
+Введите 6-и значныйт номер билета: 111111
+Счастливый билет
+
+C:\Users\Максим\source\repos\ConsoleApp4\ConsoleApp4\bin\Debug\net8.0\ConsoleApp4.exe (процесс 9504) завершил работу с кодом 0 (0x0).
+Нажмите любую клавишу, чтобы закрыть это окно:

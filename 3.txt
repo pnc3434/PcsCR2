@@ -1,0 +1,43 @@
+Задание 3
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Введите числитель M: ");
+        int m = int.Parse(Console.ReadLine());
+
+        Console.Write("Введите знаменатель N: ");
+        int n = int.Parse(Console.ReadLine());
+
+        int a = Math.Abs(m);// Находим НОД через вычитание
+        int b = Math.Abs(n);
+
+        while (a != b)
+        {
+            if (a > b)
+                a = a - b;
+            else
+                b = b - a;
+        }
+        int d = a; 
+
+        int p = m / d;// Сокращение дроби
+        int q = n / d;
+
+        if (q < 0)
+        {
+            p = -p;
+            q = -q;
+        }
+        Console.WriteLine($"Несократимая дробь: {p}/{q}");
+    }
+}
+Вывод:
+Введите числитель M: 2
+Введите знаменатель N: 3
+Несократимая дробь: 2/3
+
+C:\Users\Максим\source\repos\ConsoleApp4\ConsoleApp4\bin\Debug\net8.0\ConsoleApp4.exe (процесс 8236) завершил работу с кодом 0 (0x0).
+Нажмите любую клавишу, чтобы закрыть это окно:
